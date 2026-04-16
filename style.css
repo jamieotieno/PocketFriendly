@@ -44,3 +44,25 @@ button {
 button:hover {
   background: #1b5fbf;
 }
+
+#transactionList {
+  list-style: none;
+  padding: 0;
+}
+
+.transaction-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+
+.income {
+  border-left: 5px solid green;
+}
+
+.expense {
+  border-left: 5px solid red;
+}

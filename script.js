@@ -27,7 +27,7 @@ async function addTransaction(type, amount, category) {
 }
 
 
-// Get Transactions0
+// Get Transactions
 async function getTransactions() {
   return transactions;
 }
@@ -90,6 +90,31 @@ ${savings < 0 ? "⚠️ You are overspending!" : "✅ You are saving well"}
   `;
 }
 
+// Transaction History
+function renderTransactions(transactions) {
+  const list = document.getElementById("transactionList");
+  
+  list.innerHTML = ""; // Clear old list
+
+  if (!transactions || transactions.length === 0) {
+    list.innerHTML = "<li>No transactions yet</li>";
+    return;
+  }
+
+  transactions.forEach(t => {
+    const li = document.createElement("li");
+
+    li.classList.add("transaction-item", t.type);
+    const date = new Date(t.date).toLocaleDateString();
+    
+    li.innerHTML = `
+  <span>${t.category} (${t.type}) - ${date}</span>
+  <span> KES ${t.amount}</span>
+`;
+
+    list.appendChild(li);
+  });
+}
 
 // Chart Funtionality
 let expenseChart;
@@ -136,15 +161,16 @@ function renderChart(transactions) {
 async function loadDashboard() {
   const transactions = await getTransactions();
 
-  // Update insights
+  // Insights
   document.getElementById("summary").innerText =
     generateInsights(transactions);
 
-  // Update chart
+  // Chart
   renderChart(transactions);
+
+  //Transaction List
+  renderTransactions(transactions);
 }
-
-
 // Load
 
 loadDashboard();
