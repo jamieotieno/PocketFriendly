@@ -15,7 +15,7 @@ async function getTransactions() {
 // Adding Income and Expenses
 async function addTransaction(type, amount, category) {
   try {
-    const response = await fetch(`${BASE_URL}/transactions`, {
+    const response = await fetch(`${apiUrl}/transactions`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -33,4 +33,13 @@ async function addTransaction(type, amount, category) {
   } catch (error) {
     console.error("Error saving transaction:", error.message);
   }
+}
+
+// Link the UI to the API
+function save() {
+  const amount = document.getElementById("amount").value;
+  const category = document.getElementById("category").value;
+  const type = document.getElementById("type").value;
+
+  addTransaction(type, Number(amount), category);
 }
