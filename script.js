@@ -93,27 +93,81 @@ ${savings < 0 ? "⚠️ You are overspending!" : "✅ You are saving well"}
 // Transaction History
 function renderTransactions(transactions) {
   const list = document.getElementById("transactionList");
-  
-  list.innerHTML = ""; // Clear old list
+  list.innerHTML = "";
 
   if (!transactions || transactions.length === 0) {
     list.innerHTML = "<li>No transactions yet</li>";
     return;
   }
 
-  transactions.forEach(t => {
+  transactions.forEach((t, index) => {
     const li = document.createElement("li");
 
     li.classList.add("transaction-item", t.type);
+
     const date = new Date(t.date).toLocaleDateString();
-    
+
     li.innerHTML = `
-  <span>${t.category} (${t.type}) - ${date}</span>
-  <span> KES ${t.amount}</span>
-`;
+      <span>
+        ${t.category} (${t.type}) - ${date}
+        <strong>KES ${t.amount}</strong>
+      </span>
+
+      <div>
+        <button onclick="editTransaction(${index})">✏️</button>
+        <button onclick="deleteTransaction(${index})">❌</button>
+      </div>
+    `;
 
     list.appendChild(li);
   });
+}
+// Delete Function
+function deleteTransaction(index) {
+  if (!confirm("Delete this transaction?")) return;
+
+  transactions.splice(index, 1);
+
+  localStorage.setItem("transactions", JSON.stringify(transactions));
+
+  loadDashboard();
+}
+
+// Edit Function
+function editTransaction(index) {
+  const t = transactions[index];
+
+  const newAmount = prompt("Edit amount:", t.amount);
+  const newCategory = prompt("Edit category:", t.category);
+  const newType = prompt("Edit type (income/expense):", t.type);
+
+  if (!newAmount || !newCategory || !newType) return;
+
+  transactions[index] = {
+    ...t,
+    amount: Number(newAmount),
+    category: newCategory,
+    type: newType
+  };
+
+  localStorage.setItem("transactions", JSON.stringify(transactions));
+
+  loadDashboard();
+}
+
+// Search Function
+function searchTransactions() {
+  const query = document
+    .getElementById("searchInput")
+    .value
+    .toLowerCase();
+
+  const filtered = transactions.filter(t =>
+    t.category.toLowerCase().includes(query) ||
+    t.type.toLowerCase().includes(query)
+  );
+
+  renderTransactions(filtered);
 }
 
 // Chart Funtionality

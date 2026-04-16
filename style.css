@@ -66,3 +66,15 @@ button:hover {
 .expense {
   border-left: 5px solid red;
 }
+
+.transaction-item button {
+  margin-left: 5px;
+  border: none;
+  padding: 5px 8px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.transaction-item button:hover {
+  opacity: 0.8;
+}

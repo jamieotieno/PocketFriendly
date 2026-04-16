@@ -32,8 +32,13 @@
       <h2>📊 Insights</h2>
       <div id="summary">No data yet</div>
     </div>
-    
+
 <!-- TRANSACTION HISTORY -->
+ <input
+  id="searchInput"
+  placeholder="Search transactions..."
+  oninput="searchTransactions()"
+/>
     <div class="card">
   <h2>📜 Transaction History</h2>
   <ul id="transactionList"></ul>
