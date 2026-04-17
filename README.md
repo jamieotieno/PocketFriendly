@@ -22,7 +22,7 @@ The application is easy to use. Here is a rundown of how to operate it:
 - ### Insights 
 In the insights menu, use the provided input section to set your desired budget. After that, you can view the insight details in this section. In case you exceed your budget, you can also view it here. Additionally, it provides insights on your spending habits to notify you whether you are on the path of overspending, or if you are saving. 
 - ### Transaction History
-This section shows every transaction added, with details such as the category, amount, type, and the date added. Next to each transaction is a pencil button used to edit the type, category and amount, and a delete button to get rid of the transaction. There is also a search bar used to easily locate transactions by searching either the type or category.
+This section shows every transaction added, with details such as the category, amount, type, and the date added. Next to each transaction is a pencil button used to edit the type, category and amount, and a delete button to get rid of the transaction. There is also a search bar used to easily locate transactions by searching the amount,type,category or date/time.
 
 - ### Spending Breakdown
 This displays every single expense in pie chart form, allowing you to easily visualize your expenses and how each expense compares to each other. With this, you can easily plan your expenses to avoid overspending and to find out what you are not spending enough on.
