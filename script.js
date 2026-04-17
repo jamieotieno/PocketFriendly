@@ -142,11 +142,11 @@ function renderTransactions(transactions) {
 
     li.classList.add("transaction-item", t.type);
 
-    const date = new Date(t.date).toLocaleDateString();
+    const dateTime = new Date(t.date).toLocaleString();
 
     li.innerHTML = `
       <span>
-        ${t.category} (${t.type}) - ${date}
+        ${t.category} (${t.type}) - ${dateTime}
         <strong>KES ${t.amount}</strong>
       </span>
 
