@@ -25,11 +25,16 @@
       </select>
 
       <button onclick="save()">Add Transaction</button>
+    
     </div>
 
     <!-- INSIGHTS -->
     <div class="card">
       <h2>📊 Insights</h2>
+      <h3>Set Limit</h3>
+      <input id="budgetLimit" type="number" placeholder="Enter Your Desired Budget Limit" />
+      <button onclick="setLimit()"> Set Limit </button>
+      <h3>Insight Details</h3>
       <div id="summary">No data yet</div>
     </div>
 

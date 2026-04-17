@@ -1,6 +1,6 @@
 // Local API setup
 let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
-
+let budgetLimit = Number(localStorage.getItem("budgetLimit")) || 0;
 
 // Add Transaction
 async function addTransaction(type, amount, category) {
@@ -14,7 +14,14 @@ async function addTransaction(type, amount, category) {
     amount,
     category,
     date: new Date().toISOString()
+  
   };
+  
+  // Alert immediately when budget is exceeded
+  if (budgetLimit && transactions.filter(t => t.type === "expense")
+  .reduce((sum, t) => sum + t.amount, 0) > budgetLimit) {
+  alert("🚨 Budget limit exceeded!");
+}
 
   transactions.push(newTransaction);
 
@@ -32,6 +39,7 @@ async function getTransactions() {
   return transactions;
 }
 
+  
 
 // Link UI to function
 async function save() {
@@ -48,6 +56,27 @@ async function save() {
   // Refresh UI
   loadDashboard();
 }
+
+// Set Spending limit
+function setLimit() {
+  const input = document.getElementById("budgetLimit").value;
+
+  if (!input) {
+    alert("⚠️ Please enter desired budget limit amount");
+    return;
+  }
+
+  budgetLimit = Number(input);
+
+  localStorage.setItem("budgetLimit", budgetLimit);
+
+  alert("✅ Limit successfully set!");
+
+  document.getElementById("budgetLimit").value = "";
+
+  loadDashboard();
+}
+
 
 
 // Smart Insights
@@ -81,10 +110,18 @@ function generateInsights(transactions) {
       )
     : "None";
 
+      // Limit Check
+  let limitWarning = "";
+  if (budgetLimit && expense > budgetLimit) {
+    limitWarning = "🚨 You have exceeded your budget limit!";
+  }
+
   return `
-💰 Income: ${income}
-💸 Expenses: ${expense}
-🟢 Savings: ${savings}
+📉 Budget Limit: KES ${budgetLimit || "Not set"}
+⁉️ Limit Warning: ${limitWarning || "✅ Limit Not Exceeded"}
+💰 Income: KES ${income}
+💸 Expenses: KES ${expense}
+🟢 Savings: KES ${savings}
 📊 Top Spending: ${topCategory}
 ${savings < 0 ? "⚠️ You are overspending!" : "✅ You are saving well"}
   `;
