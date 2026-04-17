@@ -68,10 +68,11 @@ function setLimit() {
 
   budgetLimit = Number(input);
 
+// Store Set Budget Limit
   localStorage.setItem("budgetLimit", budgetLimit);
 
   alert("✅ Limit successfully set!");
-
+// Clear input after saving
   document.getElementById("budgetLimit").value = "";
 
   loadDashboard();
@@ -117,11 +118,11 @@ function generateInsights(transactions) {
   }
 
   return `
-📉 Budget Limit: KES ${budgetLimit || "Not set"}
+📉 Budget Limit: KSH. ${budgetLimit || "Not set"}
 ⁉️ Limit Warning: ${limitWarning || "✅ Limit Not Exceeded"}
-💰 Income: KES ${income}
-💸 Expenses: KES ${expense}
-🟢 Savings: KES ${savings}
+💰 Income: KSH. ${income}
+💸 Expenses: KSH. ${expense}
+🟢 Savings: KSH. ${savings}
 📊 Top Spending: ${topCategory}
 ${savings < 0 ? "⚠️ You are overspending!" : "✅ You are saving well"}
   `;
@@ -147,7 +148,7 @@ function renderTransactions(transactions) {
     li.innerHTML = `
       <span>
         ${t.category} (${t.type}) - ${dateTime}
-        <strong>KES ${t.amount}</strong>
+        <strong>KSH. ${t.amount}</strong>
       </span>
 
       <div>
@@ -201,7 +202,9 @@ function searchTransactions() {
 
   const filtered = transactions.filter(t =>
     t.category.toLowerCase().includes(query) ||
-    t.type.toLowerCase().includes(query)
+    t.type.toLowerCase().includes(query) ||
+    t.amount.toString().includes(query) ||
+    new Date(t.date).toLocaleString().toLowerCase().includes(query)
   );
 
   renderTransactions(filtered);
